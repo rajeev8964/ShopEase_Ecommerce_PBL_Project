@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Order confirmed | Thunder</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="confirmation-page">
+  <main class="confirmation-card">
+    <div class="confirmation-check" aria-hidden="true">✓</div>
+    <p class="eyebrow">ORDER RECEIVED</p>
+    <h1>Your Order Has Been Placed Successfully!</h1>
+    <p class="confirmation-copy">Your Cash on Delivery order is being prepared. Pay the payable amount when it arrives.</p>
+    <div class="confirmation-info">
+      <div><span>Order ID</span><strong id="confirmationOrder">Loading…</strong></div>
+      <div><span>Order status</span><strong id="confirmationStatus">Pending</strong></div>
+      <div><span>Payment status</span><strong id="confirmationPayment">Pending · Cash on Delivery</strong></div>
+      <div><span>Amount due</span><strong id="confirmationTotal">—</strong></div>
+    </div>
+    <div id="confirmationItems" class="confirmation-items"></div>
+    <p id="confirmationError" class="message error-message" role="status"></p>
+    <div class="confirmation-actions"><a class="primary-link" href="index.html">Continue shopping</a><a class="nav-btn" href="index.html?orders=1">View my orders</a></div>
+  </main>
+  <script src="js/order-confirmation.js"></script>
+</body>
+</html>

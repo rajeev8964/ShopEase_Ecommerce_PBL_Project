@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17221d">
+  <title>Account | Thunder</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="account-page">
+  <header class="account-header">
+    <a class="brand thunder-brand" href="index.html">THUNDER<span>®</span><small>by ShopEase</small></a>
+    <a class="nav-btn" href="index.html">Continue shopping</a>
+  </header>
+  <main class="account-shell">
+    <section class="account-promo">
+      <p class="eyebrow">WELCOME TO THUNDER</p>
+      <h1>Good sound.<br>Better shopping.</h1>
+      <p>Sign in to complete your order, track deliveries, and keep your shopping details together.</p>
+      <div class="account-promo-points"><span>✓ Guest cart preserved</span><span>✓ Secure checkout</span><span>✓ Cash on Delivery</span></div>
+    </section>
+    <section class="account-card">
+      <p class="eyebrow" id="accountEyebrow">YOUR ACCOUNT</p>
+      <h2 id="accountTitle">Welcome back</h2>
+      <p class="account-subtitle" id="accountSubtitle">Sign in to continue to your secure checkout.</p>
+      <form id="accountForm">
+        <div id="accountNameField" class="hidden"><label for="accountName">Full name</label><input id="accountName" minlength="2" maxlength="100" autocomplete="name"></div>
+        <div id="accountMobileField" class="hidden"><label for="accountMobile">Indian mobile number</label><input id="accountMobile" type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10" autocomplete="tel"></div>
+        <label for="accountEmail">Email address</label><input id="accountEmail" type="email" required maxlength="150" autocomplete="email">
+        <label for="accountPassword">Password</label><input id="accountPassword" type="password" minlength="8" required autocomplete="current-password">
+        <div id="accountConfirmField" class="hidden"><label for="accountConfirm">Confirm password</label><input id="accountConfirm" type="password" minlength="8" autocomplete="new-password"></div>
+        <button class="primary full" id="accountSubmit" type="submit">Sign in</button>
+      </form>
+      <p class="message" id="accountMessage" role="status"></p>
+      <p class="switch-auth" id="accountSwitch"></p>
+      <small class="privacy-note">Your password is securely hashed. Payment is Cash on Delivery; no online payment is taken.</small>
+    </section>
+  </main>
+  <script src="js/account.js"></script>
+</body>
+</html>

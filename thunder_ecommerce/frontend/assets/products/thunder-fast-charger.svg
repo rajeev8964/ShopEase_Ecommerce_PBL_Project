@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title">
+  <title id="title">Thunder 20W fast charger</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f2f7f3"/><stop offset="1" stop-color="#dcebe1"/></linearGradient>
+    <linearGradient id="shell" x2="1" y2="1"><stop stop-color="#343c38"/><stop offset="1" stop-color="#111815"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#21352a" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="800" height="600" rx="28" fill="url(#bg)"/>
+  <circle cx="605" cy="122" r="95" fill="#c6dfce" opacity=".65"/>
+  <ellipse cx="398" cy="477" rx="210" ry="36" fill="#9db8a4" opacity=".3"/>
+  <g filter="url(#shadow)" transform="translate(0 5)">
+    <path d="M296 211c0-25 20-45 45-45h135c25 0 45 20 45 45v174c0 25-20 45-45 45H341c-25 0-45-20-45-45z" fill="url(#shell)"/>
+    <path d="M296 246h225v139c0 25-20 45-45 45H341c-25 0-45-20-45-45z" fill="#202925"/>
+    <rect x="342" y="146" width="30" height="75" rx="6" fill="#aebbb2"/>
+    <rect x="444" y="146" width="30" height="75" rx="6" fill="#aebbb2"/>
+    <rect x="373" y="305" width="84" height="38" rx="12" fill="#0b100d" stroke="#718279" stroke-width="4"/>
+    <path d="M395 324h40" stroke="#9bcbaa" stroke-width="5" stroke-linecap="round"/>
+    <text x="408" y="276" fill="#f3f6f3" font-family="Arial,sans-serif" font-size="21" font-weight="700" text-anchor="middle" letter-spacing="3">THUNDER</text>
+    <text x="408" y="375" fill="#99caa7" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="2">20W FAST CHARGE</text>
+  </g>
+  <path d="M596 347l24-44h-23l17-38" fill="none" stroke="#176b4b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

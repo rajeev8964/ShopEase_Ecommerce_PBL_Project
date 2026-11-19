@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#17221d">
+  <title>Thunder | ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="announcement-bar">Thunder Marketplace · Secure Cash on Delivery · Shop the latest essentials</div>
+  <header class="topbar">
+    <a class="brand thunder-brand" href="#home">THUNDER<span>®</span><small>by ShopEase</small></a>
+    <div class="search">
+      <input id="searchInput" placeholder="Search Thunder products..." aria-label="Search products">
+      <button id="searchBtn">Search</button>
+    </div>
+    <nav class="store-nav">
+      <a href="#products">Shop</a>
+      <a href="#categories">Categories</a>
+      <a class="nav-btn account-link" id="loginOpen" href="account.html"><span aria-hidden="true">♙</span> Account / Login</a>
+      <button class="nav-btn hidden" id="ordersOpen">My orders</button>
+      <a class="nav-btn hidden" id="adminOpen" href="admin.html">Admin portal</a>
+      <button class="nav-btn hidden" id="logoutBtn">Logout</button>
+      <button class="nav-btn cart-btn" id="cartOpen"><span aria-hidden="true">🛒</span> Cart <b id="cartCount">0</b></button>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero thunder-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">SOUND THAT MOVES WITH YOU</p>
+        <h1>Turn up your<br><span>everyday.</span></h1>
+        <p>Discover Thunder audio and charging essentials, made for life on the move.</p>
+        <a href="#products" class="primary-link">Shop Now <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orb"></div><div class="hero-card"><span>THUNDER</span><strong>FEEL EVERY BEAT</strong><small>Built for your everyday</small></div></div>
+    </section>
+    <section class="promo-strip" aria-label="Store highlights">
+      <div class="promo-item active"><b>POWER YOUR EVERYDAY</b><span>Discover Thunder audio and charging essentials</span></div>
+      <div class="promo-item"><b>SHOP WITH CONFIDENCE</b><span>Live stock availability and secure checkout</span></div>
+      <div class="promo-item"><b>CASH ON DELIVERY</b><span>Pay when your order arrives</span></div>
+      <div class="promo-dots" aria-hidden="true"><i class="active"></i><i></i><i></i></div>
+    </section>
+
+    <section class="main home-section" id="featured">
+      <div class="section-head"><div><p class="eyebrow">JUST ARRIVED</p><h2>New Arrivals</h2></div><a class="section-link" href="#products">View all products →</a></div>
+      <div id="featuredGrid" class="product-grid"><p>Loading featured products...</p></div>
+    </section>
+
+    <section class="category-section" id="categories">
+      <div class="main">
+        <div class="section-head"><div><p class="eyebrow">FIND YOUR FIT</p><h2>Shop by Category</h2></div></div>
+        <div id="categoryGrid" class="category-grid"><p>Loading categories...</p></div>
+      </div>
+    </section>
+
+    <section class="main home-section" id="products">
+      <div class="section-head product-section-head">
+        <div><p class="eyebrow">THE THUNDER COLLECTION</p><h2>All Products</h2></div>
+        <div class="filters">
+          <input id="searchInputInline" placeholder="Search products..." aria-label="Search all products">
+          <select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+          <input id="minPrice" type="number" min="0" placeholder="Min ₹" aria-label="Minimum price">
+          <input id="maxPrice" type="number" min="0" placeholder="Max ₹" aria-label="Maximum price">
+          <select id="sortFilter" aria-label="Sort products">
+            <option value="newest">Sort: Newest</option>
+            <option value="name_asc">Name: A to Z</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="popularity">Popularity</option>
+            <option value="stock_desc">Stock: Highest</option>
+          </select>
+          <button id="filterBtn" class="nav-btn">Apply</button>
+        </div>
+      </div>
+      <div id="productGrid" class="product-grid"><p>Loading products...</p></div>
+      <div id="productPagination" class="pagination hidden">
+        <button class="nav-btn" id="previousPage">Previous</button>
+        <span id="pageLabel"></span>
+        <button class="nav-btn" id="nextPage">Next</button>
+      </div>
+    </section>
+
+    <section class="best-seller-section" id="bestSellers">
+      <div class="main home-section">
+        <div class="section-head"><div><p class="eyebrow">CUSTOMER FAVOURITES</p><h2>Best Sellers</h2></div></div>
+        <div id="bestSellersGrid" class="product-grid"><p>Loading best sellers...</p></div>
+      </div>
+    </section>
+
+    <section class="main home-section" id="offers">
+      <div class="section-head"><div><p class="eyebrow">LIMITED-TIME PRICING</p><h2>Special Offers</h2></div></div>
+      <div id="offersGrid" class="product-grid"><p>Loading offers...</p></div>
+      <p id="offersEmpty" class="empty-section hidden">No special offers at the moment. Check back soon.</p>
+    </section>
+
+    <section class="review-section" id="reviews">
+      <div class="main home-section">
+        <div class="section-head"><div><p class="eyebrow">REAL CUSTOMER FEEDBACK</p><h2>Customer Reviews</h2></div></div>
+        <div id="reviewsGrid" class="reviews-grid"><p>Loading reviews...</p></div>
+      </div>
+    </section>
+  </main>
+
+  <section class="features">
+    <div>🚚 <b>Easy ordering</b><small>Simple checkout experience</small></div>
+    <div>🔒 <b>Secure accounts</b><small>Protected user authentication</small></div>
+    <div>📦 <b>Order tracking</b><small>Follow your order status</small></div>
+  </section>
+  <footer class="store-footer">
+    <div class="footer-columns">
+      <section><a class="brand thunder-brand" href="#home">THUNDER<span>®</span></a><p>Everyday audio and charging essentials.</p></section>
+      <section><h2>Explore</h2><a href="#products">All products</a><a href="#categories">Categories</a><a href="#bestSellers">Best sellers</a></section>
+      <section><h2>Customer care</h2><a href="account.html">Account and order tracking</a><p>Sign in to review your order status and delivery details.</p></section>
+      <section><h2>Payment & privacy</h2><p>Cash on Delivery is the available payment method. No online payment is collected.</p><p>Contact details are used to fulfill and track your orders.</p></section>
+      <section><h2>Connect</h2><p>Social profile links are not configured for this store yet.</p></section>
+    </div>
+    <small>© 2026 Thunder · ShopEase</small>
+  </footer>
+
+  <div class="modal hidden" id="authModal"><div class="modal-card">
+    <button class="close" data-close="authModal" aria-label="Close">×</button>
+    <h2 id="authTitle">Welcome back</h2>
+    <form id="authForm">
+      <div id="nameField" class="hidden"><label for="authName">Name</label><input id="authName" minlength="2" maxlength="100"></div>
+      <label for="authEmail">Email</label><input id="authEmail" type="email" required>
+      <div id="authMobileField" class="hidden"><label for="authMobile">Indian mobile number</label><input id="authMobile" type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" maxlength="10"></div>
+      <label for="authPassword">Password</label><input id="authPassword" type="password" minlength="8" required>
+      <div id="authConfirmField" class="hidden"><label for="authPasswordConfirm">Confirm password</label><input id="authPasswordConfirm" type="password" minlength="8"></div>
+      <button class="primary full" type="submit" id="authSubmit">Login</button>
+    </form>
+    <p class="switch-auth" id="switchAuth"></p><p id="authMessage" class="message" role="status"></p>
+  </div></div>
+
+  <div class="modal hidden" id="cartModal"><div class="modal-card wide">
+    <button class="close" data-close="cartModal" aria-label="Close">×</button>
+    <h2>Your shopping cart</h2>
+    <div id="cartItems"></div>
+    <div class="cart-totals">
+      <div>Subtotal <b id="cartSubtotal">₹0.00</b></div>
+      <div>Discount <b id="cartDiscount">− ₹0.00</b></div>
+      <div>Delivery charges <b id="cartDelivery">₹0.00</b></div>
+      <div>Grand total <strong id="cartTotal">₹0.00</strong></div>
+    </div>
+    <button class="primary full hidden" id="guestCheckoutBtn" type="button">Checkout</button>
+    <button class="nav-btn full hidden" id="retryMergeBtn" type="button">Retry cart sync</button>
+    <form id="checkoutForm" class="checkout-form">
+      <h3>Delivery details</h3>
+      <p class="checkout-note">Confirm the recipient and delivery address. Prices are recalculated securely at checkout.</p>
+      <label for="checkoutName">Full name</label><input id="checkoutName" required minlength="2" maxlength="100" autocomplete="name">
+      <label for="checkoutEmail">Email address</label><input id="checkoutEmail" type="email" required maxlength="150" autocomplete="email">
+      <label for="checkoutMobile">Indian mobile number</label><input id="checkoutMobile" type="tel" inputmode="numeric" required pattern="[6-9][0-9]{9}" maxlength="10" autocomplete="tel">
+      <label for="checkoutHouse">House / flat number</label><input id="checkoutHouse" required maxlength="100" autocomplete="address-line1">
+      <label for="checkoutStreet">Street / locality</label><input id="checkoutStreet" required minlength="2" maxlength="255" autocomplete="address-line2">
+      <label for="checkoutLandmark">Landmark (optional)</label><input id="checkoutLandmark" maxlength="255">
+      <label for="checkoutCity">City</label><input id="checkoutCity" required minlength="2" maxlength="100" autocomplete="address-level2">
+      <label for="checkoutState">State</label><input id="checkoutState" required minlength="2" maxlength="100" autocomplete="address-level1">
+      <label for="checkoutPin">PIN code</label><input id="checkoutPin" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="postal-code">
+      <label for="checkoutCountry">Country</label><input id="checkoutCountry" value="India" required maxlength="100" autocomplete="country-name">
+      <label for="checkoutInstructions">Delivery instructions (optional)</label><textarea id="checkoutInstructions" maxlength="500" rows="2"></textarea>
+      <label for="paymentMethod">Payment method</label>
+      <select id="paymentMethod"><option value="cod">Cash on Delivery</option></select>
+      <div class="checkout-total"><span>Amount due on delivery</span><strong id="checkoutTotal">₹0.00</strong></div>
+      <button class="primary full" type="submit" id="checkoutBtn">Place Order</button>
+    </form>
+    <p id="cartMessage" class="message" role="status"></p>
+  </div></div>
+
+  <div class="modal hidden" id="ordersModal"><div class="modal-card wide">
+    <button class="close" data-close="ordersModal" aria-label="Close">×</button>
+    <h2>Your orders</h2><div id="orderHistory"></div>
+  </div></div>
+  <div class="modal hidden" id="productModal"><div class="modal-card wide">
+    <button class="close" data-close="productModal" aria-label="Close">×</button><div id="productDetails"></div>
+  </div></div>
+  <script src="js/app.js"></script>
+</body>
+</html>

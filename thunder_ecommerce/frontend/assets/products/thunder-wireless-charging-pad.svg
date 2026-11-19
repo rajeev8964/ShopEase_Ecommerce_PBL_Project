@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title">
+  <title id="title">Thunder wireless charging pad</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f2f7f3"/><stop offset="1" stop-color="#dcebe1"/></linearGradient>
+    <linearGradient id="pad" x2="1" y2="1"><stop stop-color="#3b4540"/><stop offset="1" stop-color="#141a17"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="20" stdDeviation="17" flood-color="#21352a" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="800" height="600" rx="28" fill="url(#bg)"/>
+  <circle cx="185" cy="142" r="95" fill="#c6dfce" opacity=".65"/>
+  <ellipse cx="422" cy="469" rx="245" ry="38" fill="#9db8a4" opacity=".28"/>
+  <g filter="url(#shadow)" transform="rotate(-8 415 350)">
+    <ellipse cx="390" cy="375" rx="206" ry="121" fill="#161c19"/>
+    <ellipse cx="390" cy="353" rx="206" ry="121" fill="url(#pad)"/>
+    <ellipse cx="390" cy="353" rx="174" ry="96" fill="none" stroke="#66766d" stroke-width="3"/>
+    <ellipse cx="390" cy="353" rx="151" ry="79" fill="none" stroke="#34443a" stroke-width="2"/>
+    <circle cx="390" cy="353" r="11" fill="#9bcbaa"/>
+    <text x="390" y="414" fill="#eaf4ee" font-family="Arial,sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="3">THUNDER</text>
+  </g>
+  <g filter="url(#shadow)" transform="rotate(8 603 250)">
+    <rect x="548" y="120" width="118" height="242" rx="22" fill="#151a17"/>
+    <rect x="556" y="132" width="102" height="218" rx="16" fill="#31443a"/>
+    <circle cx="607" cy="336" r="5" fill="#a8c9b0"/>
+    <path d="M578 245c0-17 13-30 30-30s30 13 30 30-13 30-30 30-30-13-30-30z" fill="none" stroke="#b4d7bd" stroke-width="4" opacity=".8"/>
+    <path d="M590 245c0-10 8-18 18-18s18 8 18 18-8 18-18 18-18-8-18-18z" fill="none" stroke="#b4d7bd" stroke-width="3" opacity=".75"/>
+  </g>
+  <path d="M660 414c41 13 63 35 64 67" fill="none" stroke="#176b4b" stroke-width="6" stroke-linecap="round"/>
+</svg>

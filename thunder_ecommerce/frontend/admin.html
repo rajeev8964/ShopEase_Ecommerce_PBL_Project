@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ShopEase Admin</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-page">
+  <aside class="admin-sidebar">
+    <a class="brand" href="index.html">Shop<span>Ease</span></a>
+    <p class="sidebar-label">STORE MANAGEMENT</p>
+    <nav id="adminNav">
+      <button class="active" data-section="dashboard">Dashboard</button>
+      <button data-section="products">Products</button>
+      <button data-section="categories">Categories</button>
+      <button data-section="orders">Orders</button>
+      <button data-section="customers">Customers</button>
+      <button data-section="reports">Sales Reports</button>
+      <button id="adminLogout">Logout</button>
+    </nav>
+  </aside>
+  <main class="admin-main">
+    <header class="admin-heading"><div><p class="eyebrow">STORE CONTROL CENTER</p><h1 id="pageTitle">Dashboard</h1></div><a class="nav-btn" href="index.html">View store</a></header>
+    <p id="adminMessage" class="message" role="status"></p>
+
+    <section class="admin-section" id="section-dashboard">
+      <div class="stats">
+        <article class="stat">Total Orders<b id="ordersStat">—</b></article>
+        <article class="stat">Total Customers<b id="customersStat">—</b></article>
+        <article class="stat">Total Products<b id="productsStat">—</b></article>
+        <article class="stat">Total Sales Revenue<b id="revenueStat">—</b></article>
+        <article class="stat">Pending Orders<b id="pendingStat">—</b></article>
+        <article class="stat">Delivered Orders<b id="deliveredStat">—</b></article>
+        <article class="stat">Cancelled Orders<b id="cancelledStat">—</b></article>
+        <article class="stat">Low-stock Products<b id="lowStockStat">—</b></article>
+      </div>
+      <div class="chart-grid">
+        <article class="chart-card"><h2>Daily sales</h2><div id="dailyChart" class="bar-chart"></div></article>
+        <article class="chart-card"><h2>Monthly revenue</h2><div id="monthlyChart" class="bar-chart"></div></article>
+        <article class="chart-card"><h2>Best-selling products</h2><div id="bestSellersChart" class="bar-chart"></div></article>
+      </div>
+    </section>
+
+    <section class="admin-section hidden" id="section-products">
+      <div class="panel-card">
+        <h2 id="productFormTitle">Add product</h2>
+        <form id="productForm" class="admin-form">
+          <input type="hidden" name="id">
+          <label>Product name<input name="name" maxlength="180" required></label>
+          <label>Price (₹)<input name="price" type="number" min="0" step="0.01" required></label>
+          <label>Compare-at price (optional)<input name="compare_at_price" type="number" min="0" step="0.01"></label>
+          <label>Available stock<input name="stock" type="number" min="0" required></label>
+          <label>Category<select name="category_id" id="productCategory"></select></label>
+          <label class="active-product-field"><input name="is_active" type="checkbox" value="1" checked> Active in public catalogue</label>
+          <label class="form-wide">Description<textarea name="description" rows="3"></textarea></label>
+          <label class="form-wide">Product image<input name="image" type="file" accept="image/png,image/jpeg,image/webp"></label>
+          <div class="form-wide"><button class="primary" type="submit" id="saveProduct">Save product</button> <button class="nav-btn hidden" type="button" id="cancelProductEdit">Cancel edit</button></div>
+        </form>
+      </div>
+      <div class="panel-card"><div class="section-head"><h2>Products</h2><label class="admin-filter">Show<select id="productStockFilter"><option value="all">All products</option><option value="low">Low stock (5 or fewer)</option></select></label></div><div class="table-wrap"><table class="admin-table"><thead><tr><th>Product</th><th>Price / Offer</th><th>Stock</th><th>Category</th><th>Visibility</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div></div>
+    </section>
+
+    <section class="admin-section hidden" id="section-categories">
+      <div class="panel-card"><h2>Add category</h2><form id="categoryForm" class="inline-form"><label>Category name<input name="name" maxlength="100" required></label><button class="primary" type="submit">Add category</button></form></div>
+      <div class="panel-card"><h2>Categories</h2><div class="table-wrap"><table class="admin-table"><thead><tr><th>Name</th><th>Actions</th></tr></thead><tbody id="categoryRows"></tbody></table></div></div>
+    </section>
+
+    <section class="admin-section hidden" id="section-orders">
+      <div class="panel-card"><h2>Customer orders</h2><div class="table-wrap"><table class="admin-table"><thead><tr>
+        <th>Order ID</th><th>Order Date</th><th>Customer Name</th><th>Mobile</th><th>Email</th><th>Delivery Address</th><th>Products ordered</th><th>Quantities</th><th>Individual prices</th><th>Subtotal</th><th>Discount</th><th>Delivery</th><th>Final amount</th><th>Payment method</th><th>Payment status</th><th>Order status</th><th>Details</th>
+      </tr></thead><tbody id="orderRows"></tbody></table></div></div>
+    </section>
+
+    <section class="admin-section hidden" id="section-customers">
+      <div class="panel-card"><h2>Customers</h2><form id="customerSearchForm" class="inline-form customer-search"><label>Search name, email or mobile<input id="customerSearch" type="search" maxlength="100" placeholder="Search customers"></label><button class="primary" type="submit">Search</button></form><div class="table-wrap"><table class="admin-table"><thead><tr><th>Customer ID</th><th>Name</th><th>Mobile</th><th>Email</th><th>Registration date</th><th>Total orders</th><th>Total spending</th><th>Last order date</th></tr></thead><tbody id="customerRows"></tbody></table></div></div>
+    </section>
+
+    <section class="admin-section hidden" id="section-reports">
+      <div class="chart-grid report-charts">
+        <article class="chart-card"><h2>Daily sales</h2><div id="dailyReportChart" class="bar-chart"></div></article>
+        <article class="chart-card"><h2>Monthly revenue</h2><div id="monthlyReportChart" class="bar-chart"></div></article>
+        <article class="chart-card"><h2>Best-selling products</h2><div id="bestReportChart" class="bar-chart"></div></article>
+      </div>
+    </section>
+  </main>
+  <script src="js/admin.js"></script>
+</body>
+</html>
