@@ -49,6 +49,53 @@ If the database already includes order management and the public catalogue, run 
    ```
    Log in again to issue a fresh role token. The admin portal is at `http://localhost:5501/admin/` when using the local frontend server; it is not linked from the public storefront.
 
+## Render deployment
+
+Deploy the backend and frontend as separate services from the `main` branch.
+
+### Backend web service
+
+- **Repository:** `rajeev8964/ShopEase_Ecommerce_PBL_Project`
+- **Branch:** `main`
+- **Root Directory:** `thunder_ecommerce/backend`
+- **Build Command:** `npm ci`
+- **Start Command:** `npm start`
+- **Health Check Path:** `/api/health`
+
+Set these environment variables in the Render service dashboard. Render supplies `PORT`; do not hardcode it.
+
+| Variable | Value |
+|---|---|
+| `NODE_ENV` | `production` |
+| `JWT_SECRET` | A new private random value of at least 32 characters |
+| `DB_HOST` | The hostname supplied by the production MySQL provider (not `localhost` or `127.0.0.1`) |
+| `DB_PORT` | The production MySQL port, commonly `3306` |
+| `DB_USER` | The production MySQL username |
+| `DB_PASSWORD` | The production MySQL password |
+| `DB_NAME` | The existing production database name |
+| `DB_SSL` | `true` only when required by the database provider; otherwise `false` |
+| `CLIENT_ORIGIN` | The exact HTTPS origin of the Render Static Site, without a trailing slash |
+
+`CLIENT_ORIGIN` accepts comma-separated origins when multiple frontend domains are needed. Do not put credentials in the repository or in the frontend.
+
+### Frontend Static Site
+
+- **Repository:** `rajeev8964/ShopEase_Ecommerce_PBL_Project`
+- **Branch:** `main`
+- **Root Directory:** `thunder_ecommerce/frontend`
+- **Build Command:** Leave blank
+- **Publish Directory:** `.`
+
+The frontend selects `http://localhost:5000/api` on localhost and the production backend URL on non-local hosts. It also uses that backend origin for `/uploads/...` image URLs. After creating the Static Site, copy its actual HTTPS URL into the backend's `CLIENT_ORIGIN`.
+
+### Uploaded images
+
+Bundled images under `frontend/assets/products/` are part of the static site and do not need persistent storage. Admin-uploaded files are stored on the backend filesystem, which is ephemeral on Render by default. To preserve those uploads across deploys, attach a persistent disk to the web service at `/var/data` and set `UPLOADS_DIR=/var/data/uploads`. Without a disk or external object storage, expect uploaded files to be lost when the service is replaced.
+
+The current Render API health endpoint is `/api/health`. It checks MySQL connectivity and returns HTTP 503 with a non-sensitive JSON response when the database is unavailable. The root URL returns API information; use `/api/health` for service and database health.
+
+The production MySQL host, username, password, database name, TLS requirements, and actual Static Site URL are provider/account-specific and must be entered in Render; they cannot be inferred from this repository. Do not run schema migrations against an existing production database until its current schema has been verified and a backup exists.
+
 ## Customer workflow
 
 1. Browse the public catalogue, category shortcuts, search/filter/sort products, and add products to the localStorage guest cart.

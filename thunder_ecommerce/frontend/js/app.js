@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = window.SHOP_EASE_CONFIG.apiBaseUrl;
 const GUEST_CART_KEY = 'shop_guest_cart';
 let token = localStorage.getItem('shop_token') || '';
 let user = null;
@@ -64,9 +64,9 @@ function saveGuestCart() {
 
 function productImage(url, name) {
     if (!url) return `<div class="product-placeholder" aria-label="${esc(name)}">🎧</div>`;
-    const src = url.startsWith('/uploads/') ?
-        `https://shopease-ecommerce-pbl-project.onrender.com${url}` :
-        url;
+    const src = url.startsWith('/uploads/')
+        ? `${window.SHOP_EASE_CONFIG.apiOrigin}${url}`
+        : url;
     if (!/^https?:\/\//i.test(src) && !src.startsWith('/assets/products/')) return `<div class="product-placeholder">🎧</div>`;
     return `<img src="${esc(src)}" alt="${esc(name)}" loading="lazy">`;
 }
@@ -166,7 +166,7 @@ async function loadHomeSections() {
     $('offersEmpty').classList.toggle('hidden', offers.items.length > 0);
     $('reviewsGrid').innerHTML = reviews.map(review => `
       <article class="review-card"><div class="review-stars" aria-label="${Number(review.rating)} out of 5 stars">${'★'.repeat(Math.max(0, Math.min(5, Number(review.rating))))}${'☆'.repeat(5 - Math.max(0, Math.min(5, Number(review.rating))))}</div>
-        <p>“${esc(review.comment)}”</p><b>${esc(review.customer_name)}</b><small>Verified product review · ${esc(review.product_name)}</small></article>`
+        <p>“${esc(review.comment)}”</p><b>ShopEase customer</b><small>Product review · ${esc(review.product_name)}</small></article>`
     ).join('') || '<p class="empty-section">Customer reviews will appear here when shoppers share feedback.</p>';
   } catch (error) {
     $('featuredGrid').innerHTML = `<p class="empty-section">${esc(error.message)}</p>`;

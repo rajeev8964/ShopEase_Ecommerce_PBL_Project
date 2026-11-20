@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = window.SHOP_EASE_CONFIG.apiBaseUrl;
 const token = localStorage.getItem('shop_token');
 const $ = id => document.getElementById(id);
 let products = [];

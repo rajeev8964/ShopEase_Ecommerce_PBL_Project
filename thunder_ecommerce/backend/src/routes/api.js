@@ -5,12 +5,13 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
+const uploadsDirectory = require('../config/uploads');
 const { body, validationResult } = require('express-validator');
 const { protect, adminOnly } = require('../middleware/auth');
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: path.join(__dirname, '../../uploads/'),
+    destination: uploadsDirectory,
     filename: (req, file, cb) => cb(null, `${crypto.randomBytes(16).toString('hex')}${path.extname(file.originalname).toLowerCase()}`)
   }),
   limits: { fileSize: 3 * 1024 * 1024 },
@@ -654,15 +655,15 @@ router.post('/reviews', protect, [
 }));
 router.get('/products/:id/reviews', asyncRoute(async (req, res) => {
   const [rows] = await pool.execute(
-    'SELECT r.*,u.name customer_name FROM reviews r JOIN users u ON u.id=r.user_id WHERE r.product_id=? ORDER BY r.created_at DESC',
+    'SELECT id,product_id,rating,comment,created_at FROM reviews WHERE product_id=? ORDER BY created_at DESC',
     [req.params.id]
   );
   res.json(rows);
 }));
 router.get('/reviews', asyncRoute(async (req, res) => {
   const [rows] = await pool.query(
-    `SELECT r.rating,r.comment,r.created_at,u.name customer_name,p.name product_name
-     FROM reviews r JOIN users u ON u.id=r.user_id JOIN products p ON p.id=r.product_id
+    `SELECT r.rating,r.comment,r.created_at,p.name product_name
+     FROM reviews r JOIN products p ON p.id=r.product_id
      WHERE r.comment IS NOT NULL AND r.comment<>'' ORDER BY r.created_at DESC LIMIT 8`
   );
   res.json(rows);

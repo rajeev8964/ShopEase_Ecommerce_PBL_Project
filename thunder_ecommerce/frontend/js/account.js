@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = window.SHOP_EASE_CONFIG.apiBaseUrl;
 const GUEST_CART_KEY = 'shop_guest_cart';
 const $ = id => document.getElementById(id);
 let mode = 'login';
