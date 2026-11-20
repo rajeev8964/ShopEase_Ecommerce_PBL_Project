@@ -73,10 +73,12 @@ Set these environment variables in the Render service dashboard. Render supplies
 | `DB_USER` | The production MySQL username |
 | `DB_PASSWORD` | The production MySQL password |
 | `DB_NAME` | The existing production database name |
-| `DB_SSL` | `true` only when required by the database provider; otherwise `false` |
+| `DB_SSL` | `true` (production requires verified TLS) |
+| `DB_SSL_CA` | Optional PEM certificate if the provider uses a private/custom CA |
 | `CLIENT_ORIGIN` | The exact HTTPS origin of the Render Static Site, without a trailing slash |
 
 `CLIENT_ORIGIN` accepts comma-separated origins when multiple frontend domains are needed. Do not put credentials in the repository or in the frontend.
+Set `DB_PORT` explicitly to the port supplied by the hosted provider. For Railway accessed from Render, use the public TCP proxy hostname and port, not Railway's internal service hostname or port. If a custom CA is needed, set `DB_SSL_CA` to its PEM contents; certificate verification remains enabled.
 
 ### Frontend Static Site
 

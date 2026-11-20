@@ -141,8 +141,11 @@ async function loadProducts(resetPage = true) {
   if ($('sortFilter').value) query.set('sort', $('sortFilter').value);
   try {
     const data = await request('/products?' + query);
+    if (!Array.isArray(data.items) || !Number.isInteger(data.totalPages) || data.totalPages < 0) {
+      throw new Error('Product API returned an invalid response.');
+    }
     products = data.items;
-    totalProductPages = data.totalPages;
+    totalProductPages = Math.max(1, data.totalPages);
     $('productPagination').classList.toggle('hidden', totalProductPages <= 1);
     $('pageLabel').textContent = `Page ${productPage} of ${totalProductPages}`;
     $('previousPage').disabled = productPage <= 1;
@@ -153,26 +156,40 @@ async function loadProducts(resetPage = true) {
   }
 }
 async function loadHomeSections() {
-  try {
-    const [featured, bestSellers, offers, reviews] = await Promise.all([
-      request('/products?limit=4&sort=newest'),
-      request('/products/best-sellers'),
-      request('/products?limit=4&offers=true&sort=newest'),
-      request('/reviews')
-    ]);
-    renderGrid('featuredGrid', featured.items, 'Products will appear here soon.');
-    renderGrid('bestSellersGrid', bestSellers, 'Best sellers will appear after customers place orders.');
-    $('offersGrid').innerHTML = offers.items.map(productCard).join('');
-    $('offersEmpty').classList.toggle('hidden', offers.items.length > 0);
-    $('reviewsGrid').innerHTML = reviews.map(review => `
+  const [featured, bestSellers, offers, reviews] = await Promise.allSettled([
+    request('/products?limit=4&sort=newest'),
+    request('/products/best-sellers'),
+    request('/products?limit=4&offers=true&sort=newest'),
+    request('/reviews')
+  ]);
+  const failureMessage = result => result.status === 'rejected'
+    ? String(result.reason?.message || result.reason || 'Request failed')
+    : 'Unexpected API response';
+
+  if (featured.status === 'fulfilled' && Array.isArray(featured.value.items)) {
+    renderGrid('featuredGrid', featured.value.items, 'Products will appear here soon.');
+  } else {
+    $('featuredGrid').innerHTML = `<p class="empty-section">Could not load products. ${esc(failureMessage(featured))}</p>`;
+  }
+  if (bestSellers.status === 'fulfilled' && Array.isArray(bestSellers.value)) {
+    renderGrid('bestSellersGrid', bestSellers.value, 'Best sellers will appear after customers place orders.');
+  } else {
+    $('bestSellersGrid').innerHTML = `<p class="empty-section">Best sellers are temporarily unavailable. ${esc(failureMessage(bestSellers))}</p>`;
+  }
+  if (offers.status === 'fulfilled' && Array.isArray(offers.value.items)) {
+    $('offersGrid').innerHTML = offers.value.items.map(productCard).join('');
+    $('offersEmpty').classList.toggle('hidden', offers.value.items.length > 0);
+  } else {
+    $('offersGrid').innerHTML = `<p class="empty-section">Offers are temporarily unavailable. ${esc(failureMessage(offers))}</p>`;
+    $('offersEmpty').classList.add('hidden');
+  }
+  if (reviews.status === 'fulfilled' && Array.isArray(reviews.value)) {
+    $('reviewsGrid').innerHTML = reviews.value.map(review => `
       <article class="review-card"><div class="review-stars" aria-label="${Number(review.rating)} out of 5 stars">${'★'.repeat(Math.max(0, Math.min(5, Number(review.rating))))}${'☆'.repeat(5 - Math.max(0, Math.min(5, Number(review.rating))))}</div>
         <p>“${esc(review.comment)}”</p><b>ShopEase customer</b><small>Product review · ${esc(review.product_name)}</small></article>`
     ).join('') || '<p class="empty-section">Customer reviews will appear here when shoppers share feedback.</p>';
-  } catch (error) {
-    $('featuredGrid').innerHTML = `<p class="empty-section">${esc(error.message)}</p>`;
-    $('bestSellersGrid').innerHTML = '<p class="empty-section">Best sellers are temporarily unavailable.</p>';
-    $('offersGrid').innerHTML = '<p class="empty-section">Offers are temporarily unavailable.</p>';
-    $('reviewsGrid').innerHTML = '<p class="empty-section">Reviews are temporarily unavailable.</p>';
+  } else {
+    $('reviewsGrid').innerHTML = `<p class="empty-section">Reviews are temporarily unavailable. ${esc(failureMessage(reviews))}</p>`;
   }
 }
 function selectCategory(categoryId) {

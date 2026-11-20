@@ -24,6 +24,16 @@ const allowedOrigins = new Set(clientOrigins.length ? clientOrigins : [
   'http://localhost:5501',
   'http://127.0.0.1:5501'
 ]);
+if (!production) {
+  for (const origin of [
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:5501',
+    'http://127.0.0.1:5501'
+  ]) {
+    allowedOrigins.add(origin);
+  }
+}
 app.use(cors({
   origin(origin, callback) {
     callback(null, !origin || allowedOrigins.has(origin));
