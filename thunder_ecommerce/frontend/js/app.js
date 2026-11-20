@@ -1,4 +1,4 @@
-const API = 'https://shopease-ecommerce-pbl-project.onrender.com/api';
+const API = 'http://localhost:5000/api';
 const GUEST_CART_KEY = 'shop_guest_cart';
 let token = localStorage.getItem('shop_token') || '';
 let user = null;
