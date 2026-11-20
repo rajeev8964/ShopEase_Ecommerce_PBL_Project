@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = 'https://shopease-ecommerce-pbl-project.onrender.com/api';
 const GUEST_CART_KEY = 'shop_guest_cart';
 let token = localStorage.getItem('shop_token') || '';
 let user = null;
@@ -14,58 +14,76 @@ let authMode = 'login';
 const $ = id => document.getElementById(id);
 const money = value => '₹' + Number(value || 0).toFixed(2);
 const categoryIcons = {
-  Earbuds: '🎧', Neckbands: '🎵', Chargers: '⚡', Cables: '🔌',
-  Speakers: '🔊', Accessories: '✨', Electronics: '📱', Fashion: '🧢',
-  'Home & Kitchen': '🏠'
+    Earbuds: '🎧',
+    Neckbands: '🎵',
+    Chargers: '⚡',
+    Cables: '🔌',
+    Speakers: '🔊',
+    Accessories: '✨',
+    Electronics: '📱',
+    Fashion: '🧢',
+    'Home & Kitchen': '🏠'
 };
 
 async function request(path, options = {}) {
-  const headers = { ...(options.headers || {}) };
-  if (token) headers.Authorization = `Bearer ${token}`;
-  if (!(options.body instanceof FormData) && options.body) headers['Content-Type'] = 'application/json';
-  const response = await fetch(API + path, { ...options, headers });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.message || data.errors?.[0]?.msg || 'Request failed');
-  return data;
+    const headers = {...(options.headers || {}) };
+    if (token) headers.Authorization = `Bearer ${token}`;
+    if (!(options.body instanceof FormData) && options.body) headers['Content-Type'] = 'application/json';
+    const response = await fetch(API + path, {...options, headers });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.message || data.errors ? .[0] ? .msg || 'Request failed');
+    return data;
 }
+
 function esc(value) {
-  return String(value ?? '').replace(/[&<>"']/g, char => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[char]));
+    return String(value ? ? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    }[char]));
 }
+
 function readGuestCart() {
-  try {
-    const stored = JSON.parse(localStorage.getItem(GUEST_CART_KEY) || '[]');
-    if (!Array.isArray(stored)) return [];
-    return stored.filter(item => Number.isInteger(Number(item.product_id)) && Number(item.product_id) > 0 &&
-      Number.isInteger(Number(item.quantity)) && Number(item.quantity) > 0)
-      .map(item => ({ product_id: Number(item.product_id), quantity: Number(item.quantity) }));
-  } catch {
-    localStorage.removeItem(GUEST_CART_KEY);
-    return [];
-  }
+    try {
+        const stored = JSON.parse(localStorage.getItem(GUEST_CART_KEY) || '[]');
+        if (!Array.isArray(stored)) return [];
+        return stored.filter(item => Number.isInteger(Number(item.product_id)) && Number(item.product_id) > 0 &&
+                Number.isInteger(Number(item.quantity)) && Number(item.quantity) > 0)
+            .map(item => ({ product_id: Number(item.product_id), quantity: Number(item.quantity) }));
+    } catch {
+        localStorage.removeItem(GUEST_CART_KEY);
+        return [];
+    }
 }
+
 function saveGuestCart() {
-  localStorage.setItem(GUEST_CART_KEY, JSON.stringify(guestCart));
+    localStorage.setItem(GUEST_CART_KEY, JSON.stringify(guestCart));
 }
+
 function productImage(url, name) {
-  if (!url) return `<div class="product-placeholder" aria-label="${esc(name)}">🎧</div>`;
-  const src = url.startsWith('/uploads/') ? `http://localhost:5000${url}` : url;
-  if (!/^https?:\/\//i.test(src) && !src.startsWith('/assets/products/')) return `<div class="product-placeholder">🎧</div>`;
-  return `<img src="${esc(src)}" alt="${esc(name)}" loading="lazy">`;
+    if (!url) return `<div class="product-placeholder" aria-label="${esc(name)}">🎧</div>`;
+    const src = url.startsWith('/uploads/') ?
+        `https://shopease-ecommerce-pbl-project.onrender.com${url}` :
+        url;
+    if (!/^https?:\/\//i.test(src) && !src.startsWith('/assets/products/')) return `<div class="product-placeholder">🎧</div>`;
+    return `<img src="${esc(src)}" alt="${esc(name)}" loading="lazy">`;
 }
+
 function priceMarkup(product) {
-  const compareAt = Number(product.compare_at_price);
-  const price = Number(product.price);
-  if (compareAt > price) {
-    const discount = Math.round((compareAt - price) / compareAt * 100);
-    return `<span class="price">${money(price)} <del>${money(compareAt)}</del></span><small class="discount-badge">${discount}% off</small>`;
-  }
-  return `<span class="price">${money(price)}</span>`;
+    const compareAt = Number(product.compare_at_price);
+    const price = Number(product.price);
+    if (compareAt > price) {
+        const discount = Math.round((compareAt - price) / compareAt * 100);
+        return `<span class="price">${money(price)} <del>${money(compareAt)}</del></span><small class="discount-badge">${discount}% off</small>`;
+    }
+    return `<span class="price">${money(price)}</span>`;
 }
+
 function productCard(product) {
-  const stock = Number(product.stock);
-  return `<article class="product">
+    const stock = Number(product.stock);
+    return `<article class="product">
     <button class="product-image-button" onclick="viewProduct(${Number(product.id)})" aria-label="View ${esc(product.name)}">${productImage(product.image_url, product.name)}</button>
     ${Number(product.compare_at_price) > Number(product.price) ? '<span class="offer-ribbon">SPECIAL OFFER</span>' : ''}
     <div class="product-info">
