@@ -31,12 +31,12 @@ async function request(path, options = {}) {
     if (!(options.body instanceof FormData) && options.body) headers['Content-Type'] = 'application/json';
     const response = await fetch(API + path, {...options, headers });
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.message || data.errors ? .[0] ? .msg || 'Request failed');
+    if (!response.ok) throw new Error(data.message || data.errors?.[0]?.msg || 'Request failed');
     return data;
 }
 
 function esc(value) {
-    return String(value ? ? '').replace(/[&<>"']/g, char => ({
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
         '&': '&amp;',
         '<': '&lt;',
         '>': '&gt;',
