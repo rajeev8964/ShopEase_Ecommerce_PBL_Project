@@ -81,7 +81,7 @@ async function loadOrder() {
   if (!currentUser || currentUser.role !== 'admin') {
     localStorage.removeItem('shop_token');
     localStorage.removeItem('shop_user');
-    location.href = 'account.html';
+    location.href = '../account.html';
     return;
   }
   renderOrder(await api(`/admin/orders/${encodeURIComponent(orderCode)}`));
@@ -89,10 +89,10 @@ async function loadOrder() {
 $('orderAdminLogout').onclick = () => {
   localStorage.removeItem('shop_token');
   localStorage.removeItem('shop_user');
-  location.href = 'index.html';
+  location.href = '../index.html';
 };
 loadOrder().catch(error => {
   $('orderAdminMessage').textContent = error.message;
   $('orderAdminMessage').classList.add('error-message');
-  if (/auth|admin/i.test(error.message)) setTimeout(() => { location.href = 'account.html'; }, 1000);
+  if (/auth|admin/i.test(error.message)) setTimeout(() => { location.href = '../account.html'; }, 1000);
 });

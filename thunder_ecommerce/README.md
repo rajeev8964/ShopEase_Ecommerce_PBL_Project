@@ -47,7 +47,7 @@ If the database already includes order management and the public catalogue, run 
    USE shop_ease;
    UPDATE users SET role='admin' WHERE email='your-admin-email@example.com';
    ```
-   Log in again to issue a fresh role token, then open `admin.html`.
+   Log in again to issue a fresh role token. The admin portal is at `http://localhost:5501/admin/` when using the local frontend server; it is not linked from the public storefront.
 
 ## Customer workflow
 

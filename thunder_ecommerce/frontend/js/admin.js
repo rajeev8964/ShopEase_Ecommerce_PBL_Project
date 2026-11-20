@@ -24,7 +24,7 @@ function showMessage(message, isError = false) {
 function logout() {
   localStorage.removeItem('shop_token');
   localStorage.removeItem('shop_user');
-  location.href = 'index.html';
+  location.href = '../index.html';
 }
 function setSection(name) {
   document.querySelectorAll('.admin-section').forEach(section => {
@@ -99,7 +99,7 @@ async function loadOrders() {
       <td>${money(order.subtotal)}</td><td>${money(order.discount_amount)}</td><td>${money(order.delivery_charges)}</td>
       <td><b>${money(order.total_amount)}</b></td><td>${esc(order.payment_method)}</td>
       <td>${esc(order.payment_status || 'Pending')}</td><td><span class="status-badge">${esc(order.status)}</span></td>
-      <td><a class="table-action" href="admin-order.html?order=${encodeURIComponent(order.order_code)}">View Order</a></td></tr>`
+      <td><a class="table-action" href="order.html?order=${encodeURIComponent(order.order_code)}">View Order</a></td></tr>`
   ).join('') || '<tr><td colspan="17">No customer orders yet.</td></tr>';
 }
 async function loadCustomers() {

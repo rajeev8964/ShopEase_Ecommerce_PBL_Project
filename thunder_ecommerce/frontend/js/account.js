@@ -92,7 +92,7 @@ $('accountForm').addEventListener('submit', async event => {
     localStorage.setItem('shop_user', JSON.stringify(result.user));
     await mergeGuestCart(result.token);
     if (result.user.role === 'admin') {
-      location.href = 'admin.html';
+      location.href = 'admin/';
       return;
     }
     if (checkoutReturn) {

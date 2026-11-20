@@ -94,7 +94,6 @@ function syncAccount() {
   $('loginOpen').classList.toggle('hidden', loggedIn);
   $('ordersOpen').classList.toggle('hidden', !loggedIn || user.role === 'admin');
   $('logoutBtn').classList.toggle('hidden', !loggedIn);
-  $('adminOpen').classList.toggle('hidden', !loggedIn || user.role !== 'admin');
   if (loggedIn) $('loginOpen').textContent = `Hi, ${user.name.split(' ')[0]}`;
 }
 async function loadCategories() {
